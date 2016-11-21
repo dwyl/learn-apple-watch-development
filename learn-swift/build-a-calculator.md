@@ -89,7 +89,7 @@ _**Xcode** is an **IDE** which will allow us to develop software for macOS, iOS,
 
 
 ### Numbers
-Enough of me talking lets **build this calculator** already!
+Enough of me talking lets **build this calculator** already! We'll start by building the user interface. (numbers/display)
 
 #### Interface Builder: In iOS you don't have to code the visuals, just drag and drop them (wire them onto the logic afterwards)
 
@@ -163,6 +163,7 @@ private var userIsTyping = false
 // (###) contains the argument
 @IBAction private func touchDigit(_ sender: UIButton) {
     let digit = sender.currentTitle!
+    print("touched \(digit) digit")
 
     if userIsTyping {
         let currentTextInDisplay = display.text!
@@ -180,7 +181,206 @@ private var userIsTyping = false
 
 ### Operators
 
+It's all well and good having some numbers that display on a screen when selected, but what about all the calculations? _Well_ if you remember when we talked about the **MVC**, we said that the brains of the app would live inside the _Model_.
+
+#### Create Operator buttons and link them to an action
+* create all the operators you'd like to use for your calculations
+    * Add
+    * Multiply
+    * Divide
+    * Square root
+* Link all of the operators to the same Action `performOperation`
+
+```js
+@IBAction private func performOperation(_ sender: UIButton) {
+ // code here
+}
+```
+<img width="1680" alt="screen shot 2016-11-01 at 15 38 24" src="https://cloud.githubusercontent.com/assets/2305591/19895664/8a363c40-a049-11e6-9dd8-6d4ae25d339d.png">
+
+> We could start adding the operator functionality inside of the controller <br>
+but As we've mentioned above it's best practice to follow the **MVC** model and put it inside a seperate file
+
+#### Setup the Model and connect it to the controller
+
+* Create a new file called `calculator_model_brain.swift` in the same directory
+    * Create a class `calculatorModelBrain`
+    ```js
+    class calculatorModelBrain {
+      // functionality to go in here
+    }
+    ```
+* connect the model to our controller
+```js
+private var brain = calculatorModelBrain() // just above our performOperation Action
+```
+
 #### Create our first Operation Key
+The **Model** needs to be able to take all the inputs and also return the calculated value back to the controller so that it can be displayed on screen. To do so, we need to have:
+
+  * `accumulator` for keeping track of the total
+  * `performOperation` for doing the calculations
+      * this function has multiple steps and requires us to create `Dictionary`, `enum` & `structs` [Reading material here](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/TheBasics.html#//apple_ref/doc/uid/TP40014097-CH5-ID309)
+  * `result` for returning the accumulated result
 
 
-### Final Product
+  #### Constants
+  Our first example will be to make our calculator work with constants such as π
+  * Create the methods required in calculatorModelBrain
+
+
+  ```js
+  class calculatorModelBrain {
+
+    // accumulator for keeping track of the total
+    private var accumulator = 0.0
+
+    // number on which the calculation should occcur
+    func setOperand(operand: Double) {
+        accumulator = operand
+    }
+
+    // table that contains keys and values.
+    private var operations: Dictionary<String,Operation> = [
+        "π" : M_PI
+    ]
+
+    // Function that will return the calculated values
+    func performOperation(symbol: String) {
+        if let operation = operations[symbol] {
+          accumulator = constant
+        }
+    }
+
+    var result: Double {
+        get {
+            return accumulator
+        }
+    }
+}
+  ```
+
+* Connect it up to the controller by adding the following inside the controller
+
+```js
+// link the calculatorModelBrain class and initialise it
+private var brain = calculatorModelBrain()
+
+// This var is a calculated property
+// when we get displayValue, it will return a double
+// when we set displayValue, it will set display to string
+private var displayValue: Double {
+    get {
+        return Double(display.text!)!
+    }
+    set {
+        display.text = String(newValue)
+    }
+}
+
+@IBAction private func performOperation(_ sender: UIButton) {
+    // when user is typing then it will set operand to what the user has input
+    if userIsTyping {
+        brain.setOperand(operand: displayValue)
+        userIsTyping = false
+    }
+    // perform operation when mathematical symbol is selected by user
+    if let mathematicalSymbol = sender.currentTitle {
+       brain.performOperation(symbol: mathematicalSymbol)
+    }
+    // after the operation has been calculated we want to display the result
+    displayValue = brain.result
+}
+
+```
+
+##### You've built the functionality for constants in your calculator :tada:
+
+#### UnaryOperators, Binary Operators and Equals
+Now with a few changes to the **Model** we can add the ability to perform other functionality such as `Add`, `Multiply`, `Square root` etc.
+
+```js
+class calculatorModelBrain {
+
+    private var accumulator = 0.0
+    func setOperand(operand: Double) {
+        accumulator = operand
+    }
+
+    // Dictionary contains all the different types of operations
+    private var operations: Dictionary<String,Operation> = [
+        "π" : Operation.Constant(M_PI),
+        "e": Operation.Constant(M_E),
+        "√": Operation.UnaryOperation(sqrt),
+        "cos": Operation.UnaryOperation(cos),
+        "±": Operation.UnaryOperation({ -$0 }),
+        "×": Operation.BinaryOperation({(op1: Double, op2: Double) -> Double in
+            return op1 * op2
+            }
+        ),
+        "+": Operation.BinaryOperation({(op1, op2) in return op1 + op2}),
+        "−": Operation.BinaryOperation({ $0 - $1 }),
+        "÷": Operation.BinaryOperation({ $0 / $1 }),
+        "=": Operation.Equals
+    ]
+
+    // enum contains all the Operations
+    private enum Operation {
+        case Constant(Double)
+        case UnaryOperation((Double) -> Double)
+        case BinaryOperation((Double, Double) -> Double)
+        case Equals
+    }
+
+    // All the operation types cases are now covered by this switch statement
+    func performOperation(symbol: String) {
+        if let operation = operations[symbol] {
+            switch operation {
+            case .Constant(let associatedValue):
+                accumulator = associatedValue
+            case .UnaryOperation(let function):
+                accumulator = function(accumulator)
+            case .BinaryOperation(let function):
+                executePendingBinaryOperation()
+                pending = PendingBinaryOperationInfo(binaryFunction: function, firstOperand: accumulator)
+            case .Equals:
+                executePendingBinaryOperation()
+            }
+        }
+    }
+
+    // This function executed any pending operations
+    // so that the user does not have to select equals every time
+    // 1 + 2 + 3 + 4 = 10
+    // 1 + 2 = + 3 = + 4 = 10
+    private func executePendingBinaryOperation() {
+        if pending != nil {
+            accumulator = pending!.binaryFunction(pending!.firstOperand, accumulator)
+            pending = nil
+        }
+    }
+
+    private var pending: PendingBinaryOperationInfo? // optional variable pending which is either nil or the struct below
+
+    private struct PendingBinaryOperationInfo {
+        var binaryFunction: (Double, Double) -> Double
+        var firstOperand: Double
+    }
+
+    var result: Double {
+        get {
+            return accumulator
+        }
+    }
+}
+```
+### Product
+#### Our final product is a functioning calculator :tada: :smile:
+
+![screen shot 2016-11-21 at 12 52 18](https://cloud.githubusercontent.com/assets/2305591/20483340/6233a48a-afe9-11e6-9de8-8968fc5181b1.png)
+
+There is a lot more that can be done to the calculator:
+* Clearing the display to 0
+* Using decimal points
+
+#### Feel free to tackle any of the above features in your own time! :smile: But, if you are happy with the functionality and would like to style the calculator so that it works well on all screen sizes then follow the [Styling a calculator guide](./styling-a-calculator)
