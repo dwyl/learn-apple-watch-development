@@ -7,12 +7,11 @@ Now that you're equipped with the basics of **_Swift_**, we'll be using some of 
     * You can follow along in other versions but you may encounter some issues  
 
 >**Content**  
-[Xcode](# Familiarise yourself with Xcode)  
-[Setup](# Project Setup)  
-[MVC](# Understanding MVC)  
-[Numbers](# Numbers)  
-[Operators](# Operators)  
-[Product](# Final Product)
+[Setup](#project-setup)  
+[MVC](understanding-mvc)  
+[Numbers](#numbers)  
+[Operators](#operators)  
+[Product](#product)
 
 ### Project Setup 
 Lets kick things off by creating a ** new Project**
