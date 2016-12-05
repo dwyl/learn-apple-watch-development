@@ -1,0 +1,53 @@
+# Interactivity between an iPhone & Apple Watch
+
+Now that we've build a few stand alone apps for both the iPhone and Apple Watch, <br>
+It's time to build 👷‍ something that will work on both devices!
+
+Our first step would be to go about understanding how to connect iPhone to an Apple <br>
+Watch, enter:
+### [WatchConnectivity Framework](https://developer.apple.com/reference/watchconnectivity)
+**Used to connect and relay messages in both directions between the two devices**
+
+We'll be using the [classes](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/ClassesAndStructures.html) and [protocol](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html) provided by this framework to create a connection in our app.
+
+#### Setup
+
+##### Project
+Create a Project (iOS App with WatchKit App)
+<img width="758" alt="screen shot 2016-12-05 at 17 27 45" src="https://cloud.githubusercontent.com/assets/2305591/20895155/2a98e8fa-bb10-11e6-8b6d-3e87251dd93f.png">
+
+##### Watch
+Create a Button (style it as you wish) and connect it to the controller as an action
+
+<img width="216" alt="screen shot 2016-12-05 at 17 31 54" src="https://cloud.githubusercontent.com/assets/2305591/20895335/ee359e2a-bb10-11e6-9d5d-19b254978982.png">
+
+```js
+@IBAction func buttonClicked() {
+    print("Button Clicked!")
+}
+```
+
+Next we need to use the WatchConnectivity framework to setup the Watch to be able to send and receive requests from the phone.
+
+Firstly lets import `WatchConnectivity` and require it in the controller class
+```js
+import WatchConnectivity
+
+class InterfaceController: WKInterfaceController, WCSessionDelegate {
+
+public func session(_ session: WCSession, activationDidCompleteWith
+activationState: WCSessionActivationState, error: Error?) {
+  // leave empty
+ }
+
+ //rest of code
+ }
+```
+As you can see above, we have a required method called `activationDidCompleteWith:error`, This is called when the activation of a method finishes
+
+
+Next lets activate the `WCSession` that will establish a connection between the two devices
+
+
+
+#####
