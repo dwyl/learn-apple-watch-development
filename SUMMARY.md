@@ -17,4 +17,4 @@
     * [FoodTracker](tutorials/iphone/food-tracker)
   * [iPhone + Apple Watch App](tutorials/iphone-apple-watch/README.md)
     * [Interaction App](tutorials/iphone-apple-watch/interaction-app.md)
-* [Resources](resources)
+* [Resources](resources/README.md)
