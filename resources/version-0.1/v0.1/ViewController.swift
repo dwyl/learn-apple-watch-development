@@ -23,8 +23,6 @@ class ViewController: UIViewController, WCSessionDelegate {
         // Dummy Implementation
     }
     
-    @IBOutlet weak var clickedLabel: UILabel!
-
     fileprivate let session: WCSession? = WCSession.isSupported() ? WCSession.default() : nil
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,6 +41,7 @@ class ViewController: UIViewController, WCSessionDelegate {
         }
     }
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -54,6 +53,7 @@ class ViewController: UIViewController, WCSessionDelegate {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBOutlet weak var clickedLabel: UILabel!
     @IBAction func phoneButtonClicked(_ sender: UIButton) {
         self.clickedLabel.text = "Phone Click"
         print("clicked on Phone")
