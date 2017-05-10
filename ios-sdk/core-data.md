@@ -16,7 +16,7 @@ Core Data basically give you the ability to create a relational database and que
 
 ### How do you use Core Data?
 
-Lets say we have an iOS app that lets a user add a dwyl repo and the number of star it has in a table.
+Lets say we have an iOS app that lets a user add a dwyl repo and the number of stars it has in a table.
 
 | Repo Name | Repo Stars |
 |:---------:|:---------:|
@@ -25,7 +25,7 @@ Lets say we have an iOS app that lets a user add a dwyl repo and the number of s
 | learn-hapi | 508 |
 
 
-We will want to store this information so that the it isn't lost when the app is closed or cleared from the phones memory. We can do this by storing the information using core data.
+We will want to store this information so that the it isn't lost when the app is closed or cleared from the phone's memory. We can do this by storing the information using core data.
 
 ### Initialise Core Data
 
@@ -169,12 +169,13 @@ repo.remove(at: indexPath.row)
 
 ```
 
-You'll notice that our first couple of steps are very similar to when we are saving the data, Once we create an appDelegate and create a variable that store the context all we need to do is call `remove(at:Int)` where you enter the row number that you'd like to delete. For me as I am using a Table view I would write the above function as `remove(at:indexPath.row)`
+You'll notice that our first couple of steps are very similar to when we are saving the data.
 
+Once we create an appDelegate and create a variable that stores the context all we need to do is call `remove(at:Int)` where you enter the row number that you'd like to delete. For me as I am using a Table view I would write the above function as `remove(at:indexPath.row)`
 
 You've made it through to the end! you've successfully managed to use Core Data to add/remove & view data that is stored in your newly built database.
 
 Please remember that this was written during my transition from being a JavaScript developer to a Swift developer, in other words I'm a complete beginner to Swift and the iOS SDK, so if you find that I've missed something or that there is an alternative way achieve the above, I'd love to hear back from you and improve upon what already exists.
 
-#### **[Sohil Pandya](https://raw.githubusercontent.com/sohilpandya)**  
-**[dwyl](https://github.com/dwyl)**
+#### [**Sohil Pandya**](https://github.com/sohilpandya)  
+[**dwyl**](https://github.com/dwyl)
