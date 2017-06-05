@@ -30,3 +30,4 @@ Before we _dive_🏊‍ into development for Apple Watch, we need to learn the b
 * [Resources](resources/README.md)
 * [iOS SDK](ios-sdk/README.md)
   *   [Creating a simple one table database with Core Data in iOS 10 using Swift 3.1](ios-sdk/core-data.md)
+  *   [How to make HTTP requests in Swift 3.1 using URLSession](ios-sdk/http-request.md)
