@@ -169,9 +169,8 @@ repo.remove(at: indexPath.row)
 
 ```
 
-You'll notice that our first couple of steps are very similar to when we are saving the data.
+You'll notice that our first couple of steps are very similar to when we are saving the data, Once we create an appDelegate and create a variable that store the context all we need to do is call `remove(at:Int)` where you enter the row number that you'd like to delete. For me as I am using a Table view I would write the above function as `remove(at:indexPath.row)`
 
-Once we create an appDelegate and create a variable that stores the context all we need to do is call `remove(at:Int)` where you enter the row number that you'd like to delete. For me as I am using a Table view I would write the above function as `remove(at:indexPath.row)`
 
 You've made it through to the end! you've successfully managed to use Core Data to add/remove & view data that is stored in your newly built database.
 
