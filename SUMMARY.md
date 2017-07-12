@@ -21,3 +21,5 @@
 * [iOS SDK](ios-sdk/README.md)
   *   [Creating a simple one table database with Core Data in iOS 10 using Swift 3.1](ios-sdk/core-data.md)
   *   [How to make HTTP requests in Swift 3.1 using URLSession](ios-sdk/http-request.md)
+* [HealthKit SDK](healthkit-sdk/README.md)
+  * [Access HealthKit Data from an iOS device. Fetch total number of steps taken over the last day](healthkit-sdk/total-steps-taken.md)
