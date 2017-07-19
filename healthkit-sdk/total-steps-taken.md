@@ -1,5 +1,6 @@
 ### In this tutorial we'll be building a simple app that will let us access users HealthKit data. We'll be starting out with trying to find out the total number of steps taken over a given period of time by the user.
 
+
 ### Setup
 
 Let's start out by creating a new project. I've called it `healthkit-steps`
@@ -114,3 +115,5 @@ Here is what is happening in the above block of code:
 - This is done on a background thread so in order for us to view the total number of steps we will have to push it onto the main thread.
 
 If we build and run this code on the simulator we'll notice that the total number of steps is unfortunately equal to 0.0, this is because the simulator does not have any data. If we try to run the app on our iPhone and see the total number of steps, it should show a real number. 🎉 (don't forget to authorise the app before pressing the get count button)
+
+**If you've come across any issues and are unable to get your code up and running then here is the [link to the XCode project](resources/healthkit-steps) for this Tutorial.**
