@@ -178,3 +178,5 @@ The result of this POST request leads to the data being stored in json-server!
 So there we have it, we've now made a GET and POST request URLSession alongside serialized JSON using JSONSerialization.
 
 Hope you enjoyed this short tutorial, we would love some feedback! Please raise this as an issue in this [repo](https://github.com/dwyl/learn-apple-watch-development/issues/new). :tada:
+
+**If you've come across any issues and are unable to get your code up and running then here is the [link to the XCode project](resources/http-requests) for this Tutorial.**

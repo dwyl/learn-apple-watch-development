@@ -68,3 +68,5 @@ We want the design to be universal so that it works across all iOS devices from 
 <img width="447" alt="screen shot 2016-12-01 at 13 02 14" src="https://cloud.githubusercontent.com/assets/2305591/20794920/99c3fc12-b7c6-11e6-9d54-6d3228a78a3e.png">
 
 ##### Run it in a simulator to see the Basic UI in action
+
+**If you've come across any issues and are unable to get your code up and running then here is the [link to the XCode project](resources/FoodTracker) for this Tutorial.**

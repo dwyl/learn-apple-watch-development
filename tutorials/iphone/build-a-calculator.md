@@ -340,3 +340,5 @@ There is a lot more that can be done to the calculator:
 * Using decimal points
 
 #### Feel free to tackle any of the above features in your own time! :smile: But, if you are happy with the functionality and would like to style the calculator so that it works well on all screen sizes then follow the [Styling a calculator guide](./styling-a-calculator)
+
+**If you've come across any issues and are unable to get your code up and running then here is the [link to the XCode project](resources/calculator) for this Tutorial.**
